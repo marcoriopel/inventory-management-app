@@ -1,10 +1,9 @@
-import uuid from 'uuid';
+const uuid = require('uuid')
 
-class Inventory {
-  constructor() {
-    this.items = [];
-}
-  create(data) {
+var items = [];
+
+
+  exports.create = function(data) {
     const newItem = {
       id: uuid.v4(),
       name: data.name,
@@ -12,21 +11,20 @@ class Inventory {
       quantity: data.quantity || '',
       description: data.description || '',
       location: data.location || '',
-      deleted: false
     };
-    this.items.push(newItem);
+    items.push(newItem);
     return newItem
   }
  
-  findOneById(id) {
+  exports.findOneById = function(id) {
     return this.items.find(item => item.id === id);
   }
 
-  findAll() {
-    return this.items;
+  exports.findAll = function() {
+    return items;
   }
 
-  update(id, data) {
+  exports.update = function(id, data) {
     const item = this.findOne(id);
     const index = this.items.indexOf(item);
     this.items[index].name = data['name'] || item.name;
@@ -37,11 +35,9 @@ class Inventory {
     return this.items[index];
   }
 
-  delete(id) {
+  exports.delete = function(id) {
     const item = this.findOne(id);
     const index = this.items.indexOf(item);
     this.items.splice(index, 1);
     return {};
   }
-}
-export default new Inventory();

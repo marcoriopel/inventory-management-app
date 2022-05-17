@@ -1,14 +1,15 @@
-import Inventory from './src/controllers/Inventory';
 const express = require('express');
+const inventory = require("./src/controllers/Inventory")
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
-app.post('/api/item', Inventory.create);
-app.get('/api/items', Inventory.getAll);
-app.get('/api/items/:id', Inventory.getOne);
-app.put('/api/items/:id', Inventory.update);
-app.delete('/api/items/:id', Inventory.delete);
+app.post('/api/item', inventory.create);
+app.get('/api/items',inventory.getAll);
+app.get('/api/items/:id',inventory.getOne);
+app.put('/api/items/:id',inventory.update);
+app.delete('/api/items/:id',inventory.delete);

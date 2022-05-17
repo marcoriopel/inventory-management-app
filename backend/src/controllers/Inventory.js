@@ -1,46 +1,46 @@
 
-import InventoryModel from '../models/Inventory';
+var InventoryModel = require('../models/Inventory')
 
-const Inventory = {
+var incrementer = 0;
 
-  create(req, res) {
+  exports.create = function(req, res) {
     if (!req.body.name) {
       return res.status(400).send({'message': 'Name is required'});
     }
     const item = InventoryModel.create(req.body);
-    return res.status(201).send(item);
-  },
+    return res.send(item);
+  };
 
-  getAll(req, res) {
+  exports.getAll = function(req, res) {
+    incrementer = incrementer + 1;
     const items = InventoryModel.findAll();
-    return res.status(200).send(items);
-  },
+    res.send(items);
+    return ;
+  };
 
-  getOne(req, res) {
+  exports.getOne = function(req, res) {
     const item = InventoryModel.findOne(req.params.id);
     if (!item) {
       return res.status(404).send({'message': 'item not found'});
     }
-    return res.status(200).send(item);
-  },
+    return res.send(item);
+  };
 
-  update(req, res) {
+  exports.update = function(req, res) {
     const item = InventoryModel.findOne(req.params.id);
     if (!item) {
       return res.status(404).send({'message': 'item not found'});
     }
     const updatedItem = InventoryModel.update(req.params.id, req.body)
     return res.status(200).send(updatedItem);
-  },
+  };
 
-  delete(req, res) {
+  exports.delete = function(req, res) {
     const item = InventoryModel.findOne(req.params.id);
     if (!item) {
       return res.status(404).send({'message': 'item not found'});
     }
     const ref = InventoryModel.delete(req.params.id);
     return res.status(204).send(ref);
-  }
-}
+  };
 
-export default Inventory;
