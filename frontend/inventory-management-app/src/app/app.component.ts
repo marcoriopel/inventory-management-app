@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ItemCreationComponent } from './item-creation/item-creation.component';
 import { InventoryItem } from './models/inventory-item';
 
 @Component({
@@ -7,6 +9,7 @@ import { InventoryItem } from './models/inventory-item';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  constructor(public dialog: MatDialog) { }
   title = 'inventory-management-app';
   inventoryItems: InventoryItem[] = [];
 
@@ -53,6 +56,14 @@ export class AppComponent implements OnInit {
         location: "Montreal"
       }
     ];
+  }
+  openCreationDialog() {
+    console.log("openCreationDialog()");
+    const dialogRef = this.dialog.open(ItemCreationComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
 
