@@ -21,7 +21,6 @@ export class LocationsManagementComponent implements OnInit {
   }
 
   addLocation() {
-    console.log("openCreationDialog()");
     const dialogRef = this.dialog.open(LocationsCreationComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -65,13 +64,9 @@ export class LocationsManagementComponent implements OnInit {
 			})
 			.subscribe({
 				next: (resp:any) => {
-          console.log(resp)
           if (resp.body != null) {
             this.locations = resp.body;
           }
-				},
-				error: (error: any) => {
-					console.log(error)
 				}
 			});
   }
@@ -92,9 +87,6 @@ export class LocationsManagementComponent implements OnInit {
           if (resp.body != null) {
             this.locations = resp.body;
           }
-				},
-				error: (error: any) => {
-					console.log(error)
 				}
 			});
   }

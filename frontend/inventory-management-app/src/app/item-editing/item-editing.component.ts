@@ -61,10 +61,6 @@ updateInventoryItem() {
     .subscribe({
       next: () => {
         this.dialogRef.close('success');
-      },
-      error: (error) => {
-        const status_code = JSON.stringify(error.status);
-        console.log(status_code)
       }
     });
 }
@@ -85,9 +81,6 @@ this.http
 	  if (resp.body != null) {
 		this.locations = resp.body;
 	  }
-			},
-			error: (error: any) => {
-				console.log(error)
 			}
 		});
   }

@@ -20,21 +20,12 @@ export class AppComponent implements OnInit {
     this.refreshInventory()
   }
   openCreationDialog() {
-    console.log("openCreationDialog()");
-    const dialogRef = this.dialog.open(ItemCreationComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(ItemCreationComponent);
   }
 
   openLocationsManagementDialog() {
-    console.log("openLocationsManagementDialog()");
     const dialogRef = this.dialog.open(LocationsManagementComponent);
     dialogRef.componentInstance.inventoryItems = this.inventoryItems
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   openEditingDialog(sku: any) {
@@ -45,7 +36,6 @@ export class AppComponent implements OnInit {
         break
       }
     }
-    console.log("openDeletingDialog()");
     const dialogRef = this.dialog.open(ItemEditingComponent);
     dialogRef.componentInstance.name = item?.name
     dialogRef.componentInstance.price = item?.price
@@ -53,9 +43,6 @@ export class AppComponent implements OnInit {
     dialogRef.componentInstance.quantity = item?.quantity
     dialogRef.componentInstance.location = item?.location
     dialogRef.componentInstance.sku = item?.id
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   refreshInventory() {
@@ -71,13 +58,9 @@ export class AppComponent implements OnInit {
 			})
 			.subscribe({
 				next: (resp:any) => {
-          console.log(resp)
           if (resp.body != null) {
             this.inventoryItems = resp.body;
           }
-				},
-				error: (error: any) => {
-					console.log(error)
 				}
 			});
   }
@@ -95,13 +78,9 @@ export class AppComponent implements OnInit {
 			})
 			.subscribe({
 				next: (resp:any) => {
-          console.log(resp)
           if (resp.body != null) {
             this.inventoryItems = resp.body;
           }
-				},
-				error: (error: any) => {
-					console.log(error)
 				}
 			});
   }

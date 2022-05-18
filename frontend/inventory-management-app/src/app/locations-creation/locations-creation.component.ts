@@ -23,7 +23,6 @@ export class LocationsCreationComponent implements OnInit {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
-	console.log(data)
     this.http
 			.post('http://localhost:3000/api/location/', data, {
 				headers: headers,
@@ -33,10 +32,6 @@ export class LocationsCreationComponent implements OnInit {
 			.subscribe({
 				next: () => {
 					this.dialogRef.close('success');
-				},
-				error: (error) => {
-					const status_code = JSON.stringify(error.status);
-					console.log(status_code)
 				}
 			});
   }
