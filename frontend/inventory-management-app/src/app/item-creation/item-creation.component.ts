@@ -47,10 +47,14 @@ export class ItemCreationComponent implements OnInit {
 			})
 			.subscribe({
 				next: () => {
-					this.dialogRef.close('success');
+					this.closeDialog(true)
 				}
 			});
   }
+
+  closeDialog(createdItem: boolean) {
+	this.dialogRef.close(createdItem);
+	}
 
   getLocationsList() {
 	const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -27,5 +27,5 @@
       </mat-form-field>
     </form>
 </div>
-<button mat-button mat-dialog-close>Cancel</button>
+<button mat-button (click)="closeDialog(false)">Cancel</button>
 <button mat-button (click)="addInventoryItem()">Add item</button>

@@ -22,7 +22,6 @@ var locations = []
 
   exports.delete = function(id) {
     const location = this.findOneById(id)
-    const index = locations.indexOf(location)
-    locations.splice(index, 1)
+    locations.splice(locations.indexOf(location), 1)
     return locations
   }

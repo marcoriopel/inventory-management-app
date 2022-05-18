@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemCreationComponent } from './item-creation/item-creation.component';
 import { ItemEditingComponent } from './item-editing/item-editing.component';
@@ -12,7 +12,7 @@ import { InventoryItem } from './models/inventory-item';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(public dialog: MatDialog, protected http: HttpClient) { }
+  constructor(public dialog: MatDialog, protected http: HttpClient, private changeDetection: ChangeDetectorRef) { }
   title = 'inventory-management-app';
   inventoryItems: InventoryItem[] = [];
 
@@ -20,12 +20,20 @@ export class AppComponent implements OnInit {
     this.refreshInventory()
   }
   openCreationDialog() {
-    this.dialog.open(ItemCreationComponent);
+    const dialogRef = this.dialog.open(ItemCreationComponent);
+    dialogRef.afterClosed().subscribe( result => {
+      if(result) {
+        this.refreshInventory()
+      }
+    });
   }
 
   openLocationsManagementDialog() {
     const dialogRef = this.dialog.open(LocationsManagementComponent);
     dialogRef.componentInstance.inventoryItems = this.inventoryItems
+    dialogRef.afterClosed().subscribe( result => {
+      this.refreshInventory()
+    });
   }
 
   openEditingDialog(sku: any) {
@@ -43,6 +51,11 @@ export class AppComponent implements OnInit {
     dialogRef.componentInstance.quantity = item?.quantity
     dialogRef.componentInstance.location = item?.location
     dialogRef.componentInstance.sku = item?.id
+    dialogRef.afterClosed().subscribe( result => {
+      if(result) {
+        this.refreshInventory()
+      }
+    });
   }
 
   refreshInventory() {
@@ -60,6 +73,7 @@ export class AppComponent implements OnInit {
 				next: (resp:any) => {
           if (resp.body != null) {
             this.inventoryItems = resp.body;
+            this.changeDetection.detectChanges();
           }
 				}
 			});
@@ -80,6 +94,7 @@ export class AppComponent implements OnInit {
 				next: (resp:any) => {
           if (resp.body != null) {
             this.inventoryItems = resp.body;
+            this.changeDetection.detectChanges();
           }
 				}
 			});

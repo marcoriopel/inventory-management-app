@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationDeletionConfirmationComponent } from '../location-deletion-confirmation/location-deletion-confirmation.component';
@@ -14,7 +14,7 @@ export class LocationsManagementComponent implements OnInit {
 	locations: any = []
   inventoryItems: any = []
 
-  constructor(public dialog: MatDialog, protected http: HttpClient) { }
+  constructor(public dialog: MatDialog, protected http: HttpClient, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getLocationsList()
@@ -25,6 +25,7 @@ export class LocationsManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getLocationsList()
+      this.changeDetection.detectChanges();
     });
   }
 
@@ -66,6 +67,7 @@ export class LocationsManagementComponent implements OnInit {
 				next: (resp:any) => {
           if (resp.body != null) {
             this.locations = resp.body;
+            this.changeDetection.detectChanges();
           }
 				}
 			});
@@ -86,6 +88,7 @@ export class LocationsManagementComponent implements OnInit {
 				next: (resp:any) => {
           if (resp.body != null) {
             this.locations = resp.body;
+            this.changeDetection.detectChanges();
           }
 				}
 			});

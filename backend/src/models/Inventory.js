@@ -41,7 +41,6 @@ var items = []
 
   exports.delete = function(id) {
     const item = this.findOneById(id)
-    const index = items.indexOf(item)
-    items.splice(index, 1)
+    items.splice(items.indexOf(item), 1)
     return items
   }

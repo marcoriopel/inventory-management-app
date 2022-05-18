@@ -39,6 +39,10 @@ ngOnInit(): void {
   this.getLocationsList()
 }
 
+closeDialog(createdItem: boolean) {
+	this.dialogRef.close(createdItem);
+	}
+
 updateInventoryItem() {
   const data = {
     name: this.itemForm.controls['name'].value,
@@ -60,7 +64,7 @@ updateInventoryItem() {
     })
     .subscribe({
       next: () => {
-        this.dialogRef.close('success');
+        this.closeDialog(true);
       }
     });
 }
@@ -79,7 +83,7 @@ this.http
 		.subscribe({
 			next: (resp:any) => {
 	  if (resp.body != null) {
-		this.locations = resp.body;
+		  this.locations = resp.body;
 	  }
 			}
 		});
