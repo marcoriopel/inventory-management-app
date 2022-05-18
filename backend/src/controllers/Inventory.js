@@ -15,21 +15,12 @@ var InventoryModel = require('../models/Inventory')
     return 
   };
 
-  exports.getOne = function(req, res) {
-    const item = InventoryModel.findOneById(req.params.id)
-    if (!item) {
-      return res.status(404).send({'message': 'item not found'})
-    }
-    return res.send(item)
-  };
-
   exports.update = function(req, res) {
     const item = InventoryModel.findOneById(req.params.id)
     if (!item) {
       return res.status(404).send({'message': 'item not found'})
     }
-    const updatedItem = InventoryModel.update(req.params.id, req.body)
-    return res.status(200).send(updatedItem)
+    return res.status(200).send(InventoryModel.update(req.params.id, req.body))
   };
 
   exports.delete = function(req, res) {
@@ -37,7 +28,6 @@ var InventoryModel = require('../models/Inventory')
     if (!item) {
       return res.status(404).send({'message': 'item not found'})
     }
-    const ref = InventoryModel.delete(req.params.id)
-    return res.status(204).send(ref)
+    return res.status(204).send(InventoryModel.delete(req.params.id))
   };
 

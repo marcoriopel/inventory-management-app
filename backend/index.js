@@ -19,6 +19,5 @@ app.delete('/api/location/:id',locations.delete)
 
 app.post('/api/item', inventory.create)
 app.get('/api/items',inventory.getAll)
-app.get('/api/items/:id',inventory.getOne)
 app.put('/api/items/:id',inventory.update)
 app.delete('/api/items/:id',inventory.delete)

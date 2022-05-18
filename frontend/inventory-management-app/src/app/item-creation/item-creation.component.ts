@@ -13,9 +13,9 @@ export class ItemCreationComponent implements OnInit {
   itemForm = new FormGroup(
 		{
 			name: new FormControl('', [Validators.required]),
-			price: new FormControl('', [Validators.required, Validators.email]),
-			description: new FormControl('', [Validators.required]),
-			quantity: new FormControl('', [Validators.required]),
+			price: new FormControl(''),
+			description: new FormControl(''),
+			quantity: new FormControl(''),
       location: new FormControl('')
 		}
 	);
