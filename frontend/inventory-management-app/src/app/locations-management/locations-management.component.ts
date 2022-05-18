@@ -10,11 +10,12 @@ import { LocationsCreationComponent } from '../locations-creation/locations-crea
   styleUrls: ['./locations-management.component.scss']
 })
 export class LocationsManagementComponent implements OnInit {
-	name = new FormControl('');
+	locations: any = []
 
   constructor(public dialog: MatDialog, protected http: HttpClient) { }
 
   ngOnInit(): void {
+    this.getLocationsList()
   }
 
   addLocation() {
@@ -22,8 +23,55 @@ export class LocationsManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(LocationsCreationComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getLocationsList()
     });
+  }
+
+  removeLocation(id: any) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+		headers.set('access-control-allow-origin', "*");
+		headers.set('withCredentials', 'false');
+    const url = "http://localhost:3000/api/location/" + id
+    this.http
+			.delete(url, {
+				headers: headers,
+				observe: 'response',
+				withCredentials: false
+			})
+			.subscribe({
+				next: (resp:any) => {
+          console.log(resp)
+          if (resp.body != null) {
+            this.locations = resp.body;
+          }
+				},
+				error: (error: any) => {
+					console.log(error)
+				}
+			});
+  }
+
+  getLocationsList() {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+		headers.set('access-control-allow-origin', "*");
+		headers.set('withCredentials', 'false');
+
+    this.http
+			.get('http://localhost:3000/api/location/', {
+				headers: headers,
+				observe: 'response',
+				withCredentials: false
+			})
+			.subscribe({
+				next: (resp:any) => {
+          if (resp.body != null) {
+            this.locations = resp.body;
+          }
+				},
+				error: (error: any) => {
+					console.log(error)
+				}
+			});
   }
   }
 

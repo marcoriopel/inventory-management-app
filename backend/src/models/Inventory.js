@@ -39,5 +39,5 @@ var items = []
     const item = this.findOneById(id)
     const index = items.indexOf(item)
     items.splice(index, 1)
-    return {}
+    return items
   }

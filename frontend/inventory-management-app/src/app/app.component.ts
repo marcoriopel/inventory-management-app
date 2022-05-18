@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
-    const url = "http://localhost:3002/api/items/" + sku
+    const url = "http://localhost:3000/api/items/" + sku
     this.http
 			.delete(url, {
 				headers: headers,

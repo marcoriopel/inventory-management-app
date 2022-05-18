@@ -9,7 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./item-creation.component.scss']
 })
 export class ItemCreationComponent implements OnInit {
-  private backendUrl: string = '127.0.0.1:3002';
   itemForm = new FormGroup(
 		{
 			name: new FormControl('', [Validators.required]),
@@ -39,7 +38,7 @@ export class ItemCreationComponent implements OnInit {
 		headers.set('withCredentials', 'false');
 
     this.http
-			.post('http://localhost:3002/api/item/', data, {
+			.post('http://localhost:3000/api/item/', data, {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false
