@@ -17,7 +17,7 @@ var items = [];
   }
  
   exports.findOneById = function(id) {
-    return this.items.find(item => item.id === id);
+    return items.find(item => item.id === id);
   }
 
   exports.findAll = function() {
@@ -26,18 +26,18 @@ var items = [];
 
   exports.update = function(id, data) {
     const item = this.findOneById(id);
-    const index = this.items.indexOf(item);
-    this.items[index].name = data['name'] || item.name;
-    this.items[index].price = data['price'] || item.price;
-    this.items[index].quantity = data['quantity'] || item.quantity;
-    this.items[index].description = data['description'] || item.description;
-    this.items[index].location = data['location'] || item.location;
-    return this.items[index];
+    const index = items.indexOf(item);
+    items[index].name = data['name'] || item.name;
+    items[index].price = data['price'] || item.price;
+    items[index].quantity = data['quantity'] || item.quantity;
+    items[index].description = data['description'] || item.description;
+    items[index].location = data['location'] || item.location;
+    return items[index];
   }
 
   exports.delete = function(id) {
     const item = this.findOneById(id);
-    const index = this.items.indexOf(item);
-    this.items.splice(index, 1);
+    const index = items.indexOf(item);
+    items.splice(index, 1);
     return {};
   }
