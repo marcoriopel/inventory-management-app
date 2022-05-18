@@ -40,7 +40,7 @@ export class ItemCreationComponent implements OnInit {
 		headers.set('withCredentials', 'false');
 
     this.http
-			.post('http://localhost:3000/api/item/', data, {
+			.post('/api/item/', data, {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false
@@ -58,7 +58,7 @@ export class ItemCreationComponent implements OnInit {
 	headers.set('withCredentials', 'false');
 
 this.http
-		.get('http://localhost:3000/api/location/', {
+		.get('/api/location/', {
 			headers: headers,
 			observe: 'response',
 			withCredentials: false

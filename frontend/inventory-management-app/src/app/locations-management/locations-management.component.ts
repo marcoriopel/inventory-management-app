@@ -55,7 +55,7 @@ export class LocationsManagementComponent implements OnInit {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
-    const url = "http://localhost:3000/api/location/" + id
+    const url = "/api/location/" + id
     this.http
 			.delete(url, {
 				headers: headers,
@@ -77,7 +77,7 @@ export class LocationsManagementComponent implements OnInit {
 		headers.set('withCredentials', 'false');
 
     this.http
-			.get('http://localhost:3000/api/location/', {
+			.get('/api/location/', {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false

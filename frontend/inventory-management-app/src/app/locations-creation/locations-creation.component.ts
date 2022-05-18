@@ -24,7 +24,7 @@ export class LocationsCreationComponent implements OnInit {
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
     this.http
-			.post('http://localhost:3000/api/location/', data, {
+			.post('/api/location/', data, {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false

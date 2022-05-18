@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 		headers.set('withCredentials', 'false');
 
     this.http
-			.get('http://localhost:3000/api/items/', {
+			.get('/api/items/', {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
-    const url = "http://localhost:3000/api/items/" + sku
+    const url = "/api/items/" + sku
     this.http
 			.delete(url, {
 				headers: headers,
