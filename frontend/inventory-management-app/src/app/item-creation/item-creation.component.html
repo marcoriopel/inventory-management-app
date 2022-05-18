@@ -1,9 +1,27 @@
 <p>Add inventory item</p>
-<mat-form-field appearance="standard">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Enter name">
-  </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>Price</mat-label>
-    <input matInput placeholder="Enter price">
-  </mat-form-field>
+<div class="formFields">
+  <form [formGroup]="itemForm" class="item-form">
+    <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Price</mat-label>
+        <input matInput placeholder="Enter price" formControlName="price">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Enter price" formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Quantity</mat-label>
+        <input matInput placeholder="Enter price" formControlName="quantity">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="Enter price" formControlName="location">
+      </mat-form-field>
+    </form>
+</div>
+<button mat-button mat-dialog-close>Annuler</button>
+<button mat-button (click)="addInventoryItem()">Envoyer la demande</button>

@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemCreationComponent } from './item-creation/item-creation.component';
@@ -9,53 +10,12 @@ import { InventoryItem } from './models/inventory-item';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, protected http: HttpClient) { }
   title = 'inventory-management-app';
   inventoryItems: InventoryItem[] = [];
 
   ngOnInit() {
-    this.inventoryItems = [
-      {
-        id: 1,
-        name: 'Socks',
-        price: 10,
-        quantity: 10,
-        description: 'A pair of warm, fuzzy socks',
-        location: "Montreal"
-      },
-      {
-        id: 2,
-        name: 'Hat',
-        price: 20,
-        quantity: 10,
-        description: 'A warm hat',
-        location: "New York"
-      },
-      {
-        id: 3,
-        name: 'Shoes',
-        price: 30,
-        quantity: 10,
-        description: 'A pair of warm, fuzzy shoes',
-        location: "Montreal"
-      },
-      {
-        id: 4,
-        name: 'Gloves',
-        price: 40,
-        quantity: 10,
-        description: 'A pair of warm, fuzzy gloves',
-        location: "Montreal"
-      },
-      {
-        id: 5,
-        name: 'T-Shirt',
-        price: 50,
-        quantity: 10,
-        description: 'A pair of warm, fuzzy t-shirt',
-        location: "Montreal"
-      }
-    ];
+    this.refreshInventory()
   }
   openCreationDialog() {
     console.log("openCreationDialog()");
@@ -64,6 +24,54 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  refreshInventory() {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+		headers.set('access-control-allow-origin', "*");
+		headers.set('withCredentials', 'false');
+
+    this.http
+			.get('http://localhost:3002/api/items/', {
+				headers: headers,
+				observe: 'response',
+				withCredentials: false
+			})
+			.subscribe({
+				next: (resp:any) => {
+          console.log(resp)
+          if (resp.body != null) {
+            this.inventoryItems = resp.body;
+          }
+				},
+				error: (error: any) => {
+					console.log(error)
+				}
+			});
+  }
+
+  deleteItem(sku: any) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+		headers.set('access-control-allow-origin', "*");
+		headers.set('withCredentials', 'false');
+    const url = "http://localhost:3002/api/items/" + sku
+    this.http
+			.delete(url, {
+				headers: headers,
+				observe: 'response',
+				withCredentials: false
+			})
+			.subscribe({
+				next: (resp:any) => {
+          console.log(resp)
+          if (resp.body != null) {
+            this.inventoryItems = resp.body;
+          }
+				},
+				error: (error: any) => {
+					console.log(error)
+				}
+			});
   }
 }
 

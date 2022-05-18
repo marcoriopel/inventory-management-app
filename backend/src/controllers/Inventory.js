@@ -1,8 +1,6 @@
 
 var InventoryModel = require('../models/Inventory')
 
-var incrementer = 0;
-
   exports.create = function(req, res) {
     if (!req.body.name) {
       return res.status(400).send({'message': 'Name is required'});
@@ -12,8 +10,8 @@ var incrementer = 0;
   };
 
   exports.getAll = function(req, res) {
-    incrementer = incrementer + 1;
     const items = InventoryModel.findAll();
+    console.log(items)
     res.send(items);
     return ;
   };
@@ -36,7 +34,7 @@ var incrementer = 0;
   };
 
   exports.delete = function(req, res) {
-    const item = InventoryModel.findOne(req.params.id);
+    const item = InventoryModel.findOneById(req.params.id);
     if (!item) {
       return res.status(404).send({'message': 'item not found'});
     }

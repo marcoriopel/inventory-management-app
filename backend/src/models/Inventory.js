@@ -25,7 +25,7 @@ var items = [];
   }
 
   exports.update = function(id, data) {
-    const item = this.findOne(id);
+    const item = this.findOneById(id);
     const index = this.items.indexOf(item);
     this.items[index].name = data['name'] || item.name;
     this.items[index].price = data['price'] || item.price;
@@ -36,7 +36,7 @@ var items = [];
   }
 
   exports.delete = function(id) {
-    const item = this.findOne(id);
+    const item = this.findOneById(id);
     const index = this.items.indexOf(item);
     this.items.splice(index, 1);
     return {};
