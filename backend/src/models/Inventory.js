@@ -20,6 +20,10 @@ var items = []
     return items.find(item => item.id === id)
   }
 
+  exports.findAllByLocation = function(location) {
+    return items.filter(item => item.location === location)
+  }
+
   exports.findAll = function() {
     return items
   }
