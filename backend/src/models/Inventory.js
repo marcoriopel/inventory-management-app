@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 
-var items = [];
+var items = []
 
 
   exports.create = function(data) {
@@ -17,27 +17,27 @@ var items = [];
   }
  
   exports.findOneById = function(id) {
-    return items.find(item => item.id === id);
+    return items.find(item => item.id === id)
   }
 
   exports.findAll = function() {
-    return items;
+    return items
   }
 
   exports.update = function(id, data) {
-    const item = this.findOneById(id);
-    const index = items.indexOf(item);
-    items[index].name = data['name'] || item.name;
-    items[index].price = data['price'] || item.price;
-    items[index].quantity = data['quantity'] || item.quantity;
-    items[index].description = data['description'] || item.description;
-    items[index].location = data['location'] || item.location;
-    return items[index];
+    const item = this.findOneById(id)
+    const index = items.indexOf(item)
+    items[index].name = data['name'] || item.name
+    items[index].price = data['price'] || item.price
+    items[index].quantity = data['quantity'] || item.quantity
+    items[index].description = data['description'] || item.description
+    items[index].location = data['location'] || item.location
+    return items[index]
   }
 
   exports.delete = function(id) {
-    const item = this.findOneById(id);
-    const index = items.indexOf(item);
-    items.splice(index, 1);
-    return {};
+    const item = this.findOneById(id)
+    const index = items.indexOf(item)
+    items.splice(index, 1)
+    return {}
   }
