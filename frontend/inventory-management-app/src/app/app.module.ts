@@ -10,11 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemCreationComponent } from './item-creation/item-creation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemEditingComponent } from './item-editing/item-editing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemCreationComponent
+    ItemCreationComponent,
+    ItemEditingComponent
   ],
   imports: [
     BrowserModule,
