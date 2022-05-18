@@ -13,6 +13,8 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
 });
 
+app.use('/', express.static('../frontend/inventory-management-app/dist/inventory-management-app'))
+
 app.post('/api/location', locations.create)
 app.get('/api/location',locations.getAll)
 app.delete('/api/location/:id',locations.delete)
