@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemCreationComponent } from './item-creation/item-creation.component';
 import { ItemEditingComponent } from './item-editing/item-editing.component';
+import { LocationsManagementComponent } from './locations-management/locations-management.component';
 import { InventoryItem } from './models/inventory-item';
 
 @Component({
@@ -21,6 +22,15 @@ export class AppComponent implements OnInit {
   openCreationDialog() {
     console.log("openCreationDialog()");
     const dialogRef = this.dialog.open(ItemCreationComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openLocationsManagementDialog() {
+    console.log("openLocationsManagementDialog()");
+    const dialogRef = this.dialog.open(LocationsManagementComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -54,7 +64,7 @@ export class AppComponent implements OnInit {
 		headers.set('withCredentials', 'false');
 
     this.http
-			.get('http://localhost:3002/api/items/', {
+			.get('http://localhost:3000/api/items/', {
 				headers: headers,
 				observe: 'response',
 				withCredentials: false

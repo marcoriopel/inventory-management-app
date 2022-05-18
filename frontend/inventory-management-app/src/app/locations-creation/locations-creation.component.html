@@ -1,0 +1,9 @@
+<h1>Add a new location</h1>
+<div class="container">
+<mat-form-field appearance="standard">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter name" [formControl]="name">
+</mat-form-field>
+</div>
+<button mat-button mat-dialog-close>Cancel</button>
+<button mat-button (click)="addLocation()">Add item</button>

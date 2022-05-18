@@ -11,12 +11,16 @@ import { ItemCreationComponent } from './item-creation/item-creation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ItemEditingComponent } from './item-editing/item-editing.component';
+import { LocationsManagementComponent } from './locations-management/locations-management.component';
+import { LocationsCreationComponent } from './locations-creation/locations-creation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemCreationComponent,
-    ItemEditingComponent
+    ItemEditingComponent,
+    LocationsManagementComponent,
+    LocationsCreationComponent
   ],
   imports: [
     BrowserModule,
