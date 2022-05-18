@@ -9,20 +9,20 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./item-editing.component.scss']
 })
 export class ItemEditingComponent implements OnInit {
+  locations: any = []
   name: any
   price: any
   description: any
   quantity: any
   location: any
   sku: any
-  private backendUrl: string = '127.0.0.1:3002';
   itemForm = new FormGroup(
   {
     name: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required, Validators.email]),
     description: new FormControl('', [Validators.required]),
     quantity: new FormControl('', [Validators.required]),
-    location: new FormControl('', [Validators.required])
+    location: new FormControl('')
   }
 );
 
@@ -36,6 +36,7 @@ ngOnInit(): void {
     quantity: this.quantity,
     location: this.location
   })
+  this.getLocationsList()
 }
 
 updateInventoryItem() {
@@ -50,7 +51,7 @@ updateInventoryItem() {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   headers.set('access-control-allow-origin', "*");
   headers.set('withCredentials', 'false');
-  const url = "http://localhost:3002/api/items/" + this.sku
+  const url = "http://localhost:3000/api/items/" + this.sku
   this.http
     .put(url, data, {
       headers: headers,
@@ -67,5 +68,28 @@ updateInventoryItem() {
       }
     });
 }
+
+getLocationsList() {
+	const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+	headers.set('access-control-allow-origin', "*");
+	headers.set('withCredentials', 'false');
+
+this.http
+		.get('http://localhost:3000/api/location/', {
+			headers: headers,
+			observe: 'response',
+			withCredentials: false
+		})
+		.subscribe({
+			next: (resp:any) => {
+	  if (resp.body != null) {
+		this.locations = resp.body;
+	  }
+			},
+			error: (error: any) => {
+				console.log(error)
+			}
+		});
+  }
 
 }

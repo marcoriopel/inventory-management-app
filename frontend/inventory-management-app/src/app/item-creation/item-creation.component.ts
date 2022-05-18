@@ -9,26 +9,28 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./item-creation.component.scss']
 })
 export class ItemCreationComponent implements OnInit {
+  locations: any = []
   itemForm = new FormGroup(
 		{
 			name: new FormControl('', [Validators.required]),
 			price: new FormControl('', [Validators.required, Validators.email]),
 			description: new FormControl('', [Validators.required]),
 			quantity: new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required])
+      location: new FormControl('')
 		}
 	);
 
   constructor(protected http: HttpClient, public dialogRef: MatDialogRef<ItemCreationComponent>) { }
 
   ngOnInit(): void {
+	  this.getLocationsList()
   }
 
   addInventoryItem() {
     const data = {
-			name: this.itemForm.controls['name'].value,
-			price: this.itemForm.controls['price'].value,
-			description: this.itemForm.controls['description'].value,
+	  name: this.itemForm.controls['name'].value,
+	  price: this.itemForm.controls['price'].value,
+	  description: this.itemForm.controls['description'].value,
       quantity: this.itemForm.controls['quantity'].value,
       location: this.itemForm.controls['location'].value
 		};
@@ -52,6 +54,29 @@ export class ItemCreationComponent implements OnInit {
 					console.log(status_code)
 				}
 			});
+  }
+
+  getLocationsList() {
+	const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+	headers.set('access-control-allow-origin', "*");
+	headers.set('withCredentials', 'false');
+
+this.http
+		.get('http://localhost:3000/api/location/', {
+			headers: headers,
+			observe: 'response',
+			withCredentials: false
+		})
+		.subscribe({
+			next: (resp:any) => {
+	  if (resp.body != null) {
+		this.locations = resp.body;
+	  }
+			},
+			error: (error: any) => {
+				console.log(error)
+			}
+		});
   }
 
 }

@@ -19,7 +19,11 @@
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>Location</mat-label>
-        <input matInput placeholder="Enter price" formControlName="location">
+        <mat-select formControlName="location">
+          <mat-option *ngFor="let location of locations" [value]="location.name">
+            {{location.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
 </div>
