@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemEditingComponent } from './item-editing/item-editing.component';
 import { LocationsManagementComponent } from './locations-management/locations-management.component';
 import { LocationsCreationComponent } from './locations-creation/locations-creation.component';
+import { LocationDeletionConfirmationComponent } from './location-deletion-confirmation/location-deletion-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LocationsCreationComponent } from './locations-creation/locations-creat
     ItemCreationComponent,
     ItemEditingComponent,
     LocationsManagementComponent,
-    LocationsCreationComponent
+    LocationsCreationComponent,
+    LocationDeletionConfirmationComponent
   ],
   imports: [
     BrowserModule,

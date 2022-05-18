@@ -3,7 +3,7 @@
 <mat-list>
     <mat-list-item *ngFor="let location of locations">
       <h3 mat-line> {{ location.name }} </h3>
-      <button mat-icon-button (click)="removeLocation(location.id)">
+      <button mat-icon-button (click)="removeLocation(location.id, location.name)">
         <mat-icon class="mat-24">delete</mat-icon>
       </button>
     </mat-list-item>

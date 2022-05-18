@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   openLocationsManagementDialog() {
     console.log("openLocationsManagementDialog()");
     const dialogRef = this.dialog.open(LocationsManagementComponent);
-
+    dialogRef.componentInstance.inventoryItems = this.inventoryItems
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

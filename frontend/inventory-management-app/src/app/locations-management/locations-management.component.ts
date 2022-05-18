@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { LocationDeletionConfirmationComponent } from '../location-deletion-confirmation/location-deletion-confirmation.component';
 import { LocationsCreationComponent } from '../locations-creation/locations-creation.component';
 
 @Component({
@@ -11,6 +12,7 @@ import { LocationsCreationComponent } from '../locations-creation/locations-crea
 })
 export class LocationsManagementComponent implements OnInit {
 	locations: any = []
+  inventoryItems: any = []
 
   constructor(public dialog: MatDialog, protected http: HttpClient) { }
 
@@ -27,7 +29,30 @@ export class LocationsManagementComponent implements OnInit {
     });
   }
 
-  removeLocation(id: any) {
+  removeLocation(id: any, name: string) {
+    var itemIncrementer = 0
+    var deleteConfirmed = false
+    for (let index = 0; index < this.inventoryItems.length; index++) {
+      if(this.inventoryItems[index].location === name) {
+        itemIncrementer += 1
+      }
+    }
+    if(itemIncrementer >= 1) {
+      deleteConfirmed = false
+      const dialogRef = this.dialog.open(LocationDeletionConfirmationComponent);
+      dialogRef.componentInstance.itemIncrementer = itemIncrementer
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.sendRemoveLocation(id)
+      }
+    });
+    } else {
+      this.sendRemoveLocation(id)
+    }
+    
+  }
+
+  sendRemoveLocation(id: any) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		headers.set('access-control-allow-origin', "*");
 		headers.set('withCredentials', 'false');
