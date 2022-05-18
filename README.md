@@ -1,1 +1,1 @@
-# shopify-backend-challenge
+# Inventory Management App
